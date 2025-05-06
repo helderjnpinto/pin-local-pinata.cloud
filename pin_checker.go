@@ -28,9 +28,11 @@ func init() {
 	if apiBase == "" {
 		apiBase = defaultAPIBase
 	}
+	fmt.Printf("Using base api | %s |\n", apiBase)
 }
 
 func isPinned(cid string) bool {
+	fmt.Printf("📡 Calling: %s/pin/add?arg=%s\n", apiBase, cid)
 	resp, err := http.Get(fmt.Sprintf("%s/pin/ls?arg=%s", apiBase, cid))
 	if err != nil {
 		return false
