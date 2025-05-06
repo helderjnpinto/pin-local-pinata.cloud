@@ -15,12 +15,6 @@ services:
       - ipfs_data:/data/ipfs # IPFS repo storage (persistent)
     command: daemon --enable-gc --api /ip4/0.0.0.0/tcp/5001
 
-    healthcheck:
-      test: sh -c "curl -s -X POST http://localhost:${IPFS_API_PORT:-5001}/api/v0/version"
-      interval: 10s
-      timeout: 3s
-      retries: 5
-
     networks:
       - ipfs-net
 
@@ -29,8 +23,7 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      ipfs:
-        condition: service_healthy
+      - ipfs
     networks:
       - ipfs-net
     env_file:
