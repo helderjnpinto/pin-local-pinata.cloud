@@ -6,10 +6,10 @@ services:
     container_name: ipfs-node
     restart: unless-stopped
     ports:
-      - "4001:4001"              # Swarm TCP
-      - "4001:4001/udp"          # Swarm UDP
-      - "5001:5001"    # API (local only)
-      - "127.0.0.1:8080:8080"    # Gateway (local only)
+      - "${IPFS_SWARM_TCP_PORT:-4001}:4001"             # Swarm TCP
+      - "${IPFS_SWARM_UDP_PORT:-4001}:4001/udp"         # Swarm UDP
+      - "${IPFS_API_PORT:-5001}:5001"                   # IPFS HTTP API
+      - "127.0.0.1:${IPFS_GATEWAY_PORT:-8080}:8080"     # Gateway (localhost only)
     volumes:
       - ipfs_export:/export             # Staging area (persistent)
       - ipfs_data:/data/ipfs            # IPFS repo storage (persistent)
