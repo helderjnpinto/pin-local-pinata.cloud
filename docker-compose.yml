@@ -13,7 +13,8 @@ services:
     volumes:
       - ipfs_export:/export             # Staging area (persistent)
       - ipfs_data:/data/ipfs            # IPFS repo storage (persistent)
-    command: daemon --enable-gc
+    command: daemon --enable-gc --api /ip4/0.0.0.0/tcp/5001
+
     networks:
       - ipfs-net
 
