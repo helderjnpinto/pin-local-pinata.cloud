@@ -16,7 +16,7 @@ services:
     command: daemon --enable-gc --api /ip4/0.0.0.0/tcp/5001
 
     healthcheck:
-      test: sh -c "curl -f http://localhost:${IPFS_API_PORT:-5001}/api/v0/version"
+      test: sh -c "curl -s -X POST http://localhost:${IPFS_API_PORT:-5001}/api/v0/version"
       interval: 10s
       timeout: 3s
       retries: 5
