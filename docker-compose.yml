@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: ipfs-node
+    restart: unless-stopped
+    ports:
+      - "4001:4001"              # Swarm TCP
+      - "4001:4001/udp"          # Swarm UDP
+      - "127.0.0.1:5001:5001"    # API (local only)
+      - "127.0.0.1:8080:8080"    # Gateway (local only)
+    volumes:
+      - ipfs_export:/export             # Staging area (persistent)
+      - ipfs_data:/data/ipfs            # IPFS repo storage (persistent)
+    command: daemon --enable-gc
+
+volumes:
+  ipfs_export:
+  ipfs_data:
