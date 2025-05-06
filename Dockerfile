@@ -14,9 +14,9 @@ RUN chmod +x check_pinned_status.sh
 CMD ["sh", "-c", "\
     echo '⏳ Waiting for IPFS API to be ready...'; \
     until curl -s http://ipfs-node:5001/api/v0/version > /dev/null; do \
-    sleep 5; \
+    sleep 2; \
     done; \
     echo '✅ IPFS is ready.'; \
     curl -X POST 'http://ipfs-node:5001/api/v0/swarm/connect?arg=/dnsaddr/bitswap.pinata.cloud' \
-    && ls -la && go run pin_checker.go \
+    && ls -la && go run pin_checker.go && ./check_pinned_status.sh \
     "]

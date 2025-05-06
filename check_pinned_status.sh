@@ -7,6 +7,9 @@ FILE="all_files.jsonl"
 REPORT="pinning_report.txt"
 > "$REPORT"  # clear previous report
 
+# IPFS API endpoint
+IPFS_API="${IPFS_API:-http://127.0.0.1:5001/api/v0}"
+
 # Counters
 total=0
 pinned=0
@@ -21,7 +24,7 @@ while IFS= read -r line; do
   cid=$(echo "$line" | jq -r '.cid')
 
   # Check pin status using the IPFS API
-  response=$(curl -s -X POST "http://127.0.0.1:5001/api/v0/pin/ls?arg=$cid" 2>/dev/null)
+  response=$(curl -s -X POST "$IPFS_API/pin/ls?arg=$cid" 2>/dev/null)
 
   if echo "$response" | grep -q "\"$cid\""; then
     echo "✅ Pinned: $name ($cid)"
