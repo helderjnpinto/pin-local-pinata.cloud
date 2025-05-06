@@ -14,6 +14,26 @@ services:
       - ipfs_export:/export             # Staging area (persistent)
       - ipfs_data:/data/ipfs            # IPFS repo storage (persistent)
     command: daemon --enable-gc
+    networks:
+      - ipfs-net
+
+  go-script:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - ipfs
+    networks:
+      - ipfs-net
+    env_file:
+      - .env
+    volumes:
+      - ./results:/app/results       # Local mapping for pinning_report.txt
+      - .:/app                       # Mount full project folder (for all_files.jsonl, etc.)
+    working_dir: /app
+
+networks:
+  ipfs-net:               # Automatically loads the .env file
 
 volumes:
   ipfs_export:

@@ -75,6 +75,7 @@ Sample:
 - Use IPFS SDK: [`go-ipfs-api`](https://github.com/ipfs/go-ipfs-api)
 - Interact with local IPFS daemon running at `localhost:5001`
 
+
 ---
 
 ### 🔌 Behavior Summary
@@ -114,3 +115,15 @@ Failed: 1
 ---
 
 Would you like me to generate the actual Go code for this?
+
+# Project structure
+
+project-root/
+│
+├── pin_checker.go             # Your Go script
+├── check_pinned_status.sh     # Bash script that generates pinning_report.txt
+├── all_files.jsonl            # Input file
+├── .env                       # Contains IPFS_API config
+├── docker-compose.yml         # Orchestrates Go + IPFS
+├── results/                   # Will hold pinning_report.txt (mapped as volume)
+└── Dockerfile                 # Builds & runs the Go script + shell script
