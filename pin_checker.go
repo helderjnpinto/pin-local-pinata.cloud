@@ -16,10 +16,19 @@ type FileEntry struct {
 }
 
 const (
-	apiBase     = "http://127.0.0.1:5001/api/v0"
-	concurrency = 5
-	jsonlPath   = "all_files.jsonl"
+	defaultAPIBase = "http://127.0.0.1:5001/api/v0"
+	concurrency    = 5
+	jsonlPath      = "all_files.jsonl"
 )
+
+var apiBase string
+
+func init() {
+	apiBase = os.Getenv("IPFS_API")
+	if apiBase == "" {
+		apiBase = defaultAPIBase
+	}
+}
 
 func isPinned(cid string) bool {
 	resp, err := http.Get(fmt.Sprintf("%s/pin/ls?arg=%s", apiBase, cid))
