@@ -1,7 +1,3 @@
-Great question. To ensure your **IPFS node is publicly reachable** and can **serve pinned content**, here’s exactly what you need to do for **firewall configuration** (VPS or home) and **router port forwarding**:
-
----
-
 ### 🔥 1. VPS Firewall Configuration
 
 If your IPFS node is running on a VPS (e.g., Ubuntu):
